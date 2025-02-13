@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: nginx-statefulset
+  namespace: dev
 spec:
   servicename: "nginx"
   replicas: 2
@@ -15,16 +16,18 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: repo/nginx:latest
+          image: repo/nginx:1.19-alpine
           ports:
             conatainerport: 80
           resource:
-            requests:
+            limits:
               cpu: 500m
               memory: 250Mi
-            limits:
+            requests:
               cpu: 250m
               memory: 128Mi
           volumemounts:
           - name: nginx-storage
             mountpath: /usr/share/nginx/html
+
+            # add volume and pvc blocks
