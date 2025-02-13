@@ -6,3 +6,5 @@ class TextExtraction:
 text = "Emails, user@example.com"
 extractor = TextExtraction()
 print(extractor.extract_emails(text))
+
+add init in class & add __main__
