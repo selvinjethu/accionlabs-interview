@@ -1,9 +1,11 @@
-#read email from a lof file
+AWK - Extract only ERROR logs  
+awk '$3 == "ERROR" {print}' logs.txt  
 
-grep -E -o "[a-zA-Z0-9]+[a-zA-Z0-9]+\\[a-zA-Z]{2,}" log.txt
+SED - Replace `ERROR` with `CRITICAL`  
+sed 's/ERROR/CRITICAL/g' logs.txt  
 
-grep -e "error" log.txt
+TR - Convert all lowercase to uppercase  
+cat logs.txt | tr 'a-z' 'A-Z'  
 
-awk "ERROR" log.txt
-
-#add tr, sed in this 
+GREP - Find all logs with "CPU"  
+grep "CPU" logs.txt  

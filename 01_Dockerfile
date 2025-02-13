@@ -1,8 +1,17 @@
-#Dockerfile for nginx 1.19
+FROM nginx:1.21.6-alpine
 
-FROM nginx:1.19.0-alpine
 WORKDIR /var/www/html
-RUN rm -rf /etc/nginx/config.d/default.conf
-#add user and group for non root user, expose 80
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-CMD ["nginx", "-g", "demon off;"]
+
+RUN rm -rf /etc/nginx/conf.d/default.conf
+
+RUN addgroup -S nginxgroup && adduser -S nginxuser -G nginxgroup \
+    && chown -R nginxuser:nginxgroup /var/cache/nginx /var/run /var/log/nginx
+
+COPY nginx.conf /etc/nginx/nginx.conf
+
+USER nginxuser
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
+
