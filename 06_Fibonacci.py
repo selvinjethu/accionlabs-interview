@@ -10,3 +10,5 @@ class Fibonacci:
 
 fib = Fibonacci
 print(fib.even_sum(100))
+
+init and __main
