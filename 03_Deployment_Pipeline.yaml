@@ -2,20 +2,24 @@ name: Deployment Pipeline
 on:
   push:
     branches:
-      - master  
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
         uses: actions/checkout@v3
+        #check and update the version
       
       - name: docker image build
-        run: docker build -t nginx:latest .
+        run: docker build -t nginx:1.19-alphine .
+
+        #add authtication tp docker hub
+        #scan docker image trivi scan
 
       - name: docker image push
         run: |
-          docker tag nginx:latest repo/nginx:latest
+          docker tag nginx:latest repo/nginx:1.19-alphine
           docker push 
 
   deploy:
@@ -27,3 +31,6 @@ jobs:
 
       - name: deploy to cluster
         run: kubectl apply -f StatefullSet.yaml
+
+        #incluse wait tillpods are up
+        #another job for updating image in 
